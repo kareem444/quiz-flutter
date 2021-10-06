@@ -1,3 +1,5 @@
+// ignore_for_file: import_of_legacy_library_into_null_safe
+
 import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:quiz/questions.dart';
@@ -5,6 +7,7 @@ import 'package:quiz/questions_answers_scores.dart';
 import 'package:quiz/result.dart';
 import 'package:quiz/answers.dart';
 import 'package:quiz/color.dart';
+import 'package:vibration/vibration.dart';
 
 class Home extends StatefulWidget {
   const Home({Key? key}) : super(key: key);
@@ -31,6 +34,9 @@ class _HomeState extends State<Home> {
   }
 
   void increaceTheIndex(int score) {
+    if (score == 0) {
+      Vibration.vibrate(amplitude: 20, duration: 250);
+    }
     setState(() {
       firstClick = true;
       answerd = true;

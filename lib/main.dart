@@ -36,46 +36,51 @@ class _MyHomePageState extends State<MyHomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(
-          title: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Switch(
-                value: isSwitched,
-                onChanged: (val) {
-                  setState(() {
-                    isSwitched = val;
-                    if (val == true) {
-                      b = Colors.white;
-                      b54 = Colors.white60;
-                      w = Colors.black;
-                    } else {
-                      b = Colors.black;
-                      b54 = Colors.black54;
-                      w = Colors.white;
-                    }
-                  });
-                },
-                activeColor: Colors.amber,
-              ),
-              Row(
-                children: [
-                  Text(
-                    widget.title,
+      appBar: AppBar(
+        title: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Switch(
+              value: isSwitched,
+              onChanged: (val) {
+                setState(() {
+                  isSwitched = val;
+                  if (val == true) {
+                    b = Colors.white;
+                    b54 = Colors.white60;
+                    w = Colors.black;
+                  } else {
+                    b = Colors.black;
+                    b54 = Colors.black54;
+                    w = Colors.white;
+                  }
+                });
+              },
+              activeColor: Colors.amber,
+            ),
+            Row(
+              children: [
+                Text(
+                  widget.title,
+                ),
+                const Padding(
+                  padding: EdgeInsets.fromLTRB(10, 0, 0, 0),
+                  child: Icon(
+                    Icons.directions_run,
+                    size: 22,
                   ),
-                  const Padding(
-                    padding: EdgeInsets.fromLTRB(10, 0, 0, 0),
-                    child: Icon(
-                      Icons.directions_run,
-                      size: 22,
-                    ),
-                  ),
-                ],
-              ),
-            ],
-          ),
+                ),
+              ],
+            ),
+          ],
         ),
-        // ignore: prefer_const_constructors
-        body: Home());
+      ),
+      // ignore: prefer_const_constructors
+      body: Home(),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {},
+        child: Icon(Icons.ac_unit),
+      ),
+    );
   }
 }
