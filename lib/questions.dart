@@ -13,11 +13,11 @@ class Questions extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: const EdgeInsets.fromLTRB(20, 5, 20, 5),
+      padding: const EdgeInsets.fromLTRB(20, 30, 20, 30),
       child: Center(
         child: Text(
           "$numberOfTheQuestion : $question ؟",
-          style: TextStyle(fontSize: 25, color: b),
+          style: TextStyle(fontSize: 28, color: b),
           textAlign: TextAlign.center,
           textDirection: TextDirection.rtl,
         ),

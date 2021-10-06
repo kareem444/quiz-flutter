@@ -14,7 +14,6 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
-
   int questionIndex = 0;
   int totalScore = 0;
   int totalAnswerd = 0;
@@ -54,12 +53,16 @@ class _HomeState extends State<Home> {
         totalScore = totalScore + score;
         if (totalScore <= 5) {
           level = "ضعيف";
+          resultLevel = Colors.red;
         } else if (totalScore > 5 && totalScore <= 10) {
           level = "جيد";
+          resultLevel = Colors.amber;
         } else if (totalScore > 10 && totalScore <= 15) {
           level = "جيد جدا";
+          resultLevel = Colors.blueAccent;
         } else if (totalScore > 15 && totalScore <= 20) {
           level = "ممتاز";
+          resultLevel = Colors.green;
         }
       });
     });

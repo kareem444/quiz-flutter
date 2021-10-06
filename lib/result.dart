@@ -21,31 +21,40 @@ class Result extends StatelessWidget {
       width: double.infinity,
       color: w,
       child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
+        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: [
           Text(
-            "$totlaScore/20 : الدرجة",
-            style: TextStyle(color: b, fontSize: 20),
+            "$totlaScore/20",
+            style: TextStyle(color: b, fontSize: 35),
           ),
-          Text(
-            "المستوى : $level",
-            style: TextStyle(color: b, fontSize: 20),
+          Container(
+            height: 150,
+            width: 150,
+            child: Center(
+              child: Text(
+                level,
+                style: TextStyle(color: resultLevel, fontSize: 25),
+              ),
+            ),
+            decoration: BoxDecoration(
+              shape: BoxShape.circle,
+              color: w,
+              border: Border.all(width: 5, color: resultLevel),
+            ),
           ),
-          TextButton(
-              onPressed: () {
-                if (remainingQuestions > 1) {
-                  restartTheQuiz();
-                } else {
-                  null;
-                }
-              },
+          Center(
               child: remainingQuestions > 1
-                  ? const Text(
-                      "إعادة اللعب ",
-                      style: TextStyle(fontSize: 18),
-                    )
-                  : Text("لقد أتممت كل الأسئلة",
-                      style: TextStyle(fontSize: 18, color: b54)))
+                  ? ElevatedButton(
+                      onPressed: () {
+                        restartTheQuiz();
+                      },
+                      child: const Text(
+                        "إعادة اللعب",
+                        textAlign: TextAlign.center,
+                        style: TextStyle(fontSize: 25),
+                      ))
+                  : Text("لقد أتممت كل الإختبارات",
+                      style: TextStyle(fontSize: 17, color: b54)))
         ],
       ),
     );

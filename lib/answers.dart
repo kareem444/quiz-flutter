@@ -26,7 +26,6 @@ class _AnswersState extends State<Answers> {
 
   void changeButtonColor() {
     setState(() {
-      
       if (widget.score == 0) {
         buttonColor = Colors.redAccent.withOpacity(.7);
       } else {
@@ -44,12 +43,13 @@ class _AnswersState extends State<Answers> {
   Widget build(BuildContext context) {
     return Container(
       width: double.infinity,
+      margin: const EdgeInsets.symmetric(vertical: 5),
       padding: const EdgeInsets.symmetric(horizontal: 10),
       child: ElevatedButton(
         style: ElevatedButton.styleFrom(primary: buttonColor),
         child: Text(
           widget.answer,
-          style: const TextStyle(fontSize: 22),
+          style: const TextStyle(fontSize: 25),
         ),
         onPressed: () {
           if (!widget.firstClick) {
@@ -61,4 +61,3 @@ class _AnswersState extends State<Answers> {
     );
   }
 }
-
