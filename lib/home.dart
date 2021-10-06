@@ -14,35 +14,54 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
+
   int questionIndex = 0;
   int totalScore = 0;
   int totalAnswerd = 0;
   int numberOfTheQuestion = 1;
   String level = "";
+  bool answerd = false;
+  bool firstClick = false;
+
+  @override
+  void initState() {
+    super.initState();
+    Random random = Random();
+    int randomNumber = random.nextInt(questionsAnswersScores.length);
+    questionIndex = randomNumber;
+  }
 
   void increaceTheIndex(int score) {
-    questionsAnswersScores.removeAt(questionIndex);
-
     setState(() {
-      if (questionsAnswersScores.length < 2) {
-        questionIndex = 0;
-      } else {
-        Random random = Random();
-        int randomNumber = random.nextInt(questionsAnswersScores.length);
-        questionIndex = randomNumber;
-      }
-      numberOfTheQuestion++;
-      totalAnswerd++;
-      totalScore = totalScore + score;
-      if (totalScore <= 5) {
-        level = "ضعيف";
-      } else if (totalScore > 5 && totalScore <= 10) {
-        level = "جيد";
-      } else if (totalScore > 10 && totalScore <= 15) {
-        level = "جيد جدا";
-      } else if (totalScore > 15 && totalScore <= 20) {
-        level = "ممتاز";
-      }
+      firstClick = true;
+      answerd = true;
+    });
+    Future.delayed(const Duration(seconds: 2), () {
+      answerd = false;
+      questionsAnswersScores.removeAt(questionIndex);
+      setState(() {
+        firstClick = false;
+        bu = Colors.blueAccent;
+        if (questionsAnswersScores.length < 2) {
+          questionIndex = 0;
+        } else {
+          Random random = Random();
+          int randomNumber = random.nextInt(questionsAnswersScores.length);
+          questionIndex = randomNumber;
+        }
+        numberOfTheQuestion++;
+        totalAnswerd++;
+        totalScore = totalScore + score;
+        if (totalScore <= 5) {
+          level = "ضعيف";
+        } else if (totalScore > 5 && totalScore <= 10) {
+          level = "جيد";
+        } else if (totalScore > 10 && totalScore <= 15) {
+          level = "جيد جدا";
+        } else if (totalScore > 15 && totalScore <= 20) {
+          level = "ممتاز";
+        }
+      });
     });
   }
 
@@ -66,11 +85,14 @@ class _HomeState extends State<Home> {
                     question: questionsAnswersScores[questionIndex]["question"],
                     numberOfTheQuestion: numberOfTheQuestion,
                   ),
-                  ...questionsAnswersScores[questionIndex]["answers"].map((e) =>
-                      Answers(
-                          answer: e["answer"],
-                          increacetheIndex: increaceTheIndex,
-                          score: e["score"]))
+                  ...questionsAnswersScores[questionIndex]["answers"]
+                      .map((e) => Answers(
+                            answer: e["answer"],
+                            increacetheIndex: increaceTheIndex,
+                            score: e["score"],
+                            answerd: answerd,
+                            firstClick: firstClick,
+                          ))
                 ],
               )
             : Result(

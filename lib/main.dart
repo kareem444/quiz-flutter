@@ -75,6 +75,7 @@ class _MyHomePageState extends State<MyHomePage> {
             ],
           ),
         ),
+        // ignore: prefer_const_constructors
         body: Home());
   }
 }
