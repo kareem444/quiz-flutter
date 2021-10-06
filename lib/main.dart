@@ -32,6 +32,7 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
   bool isSwitched = false;
+  bool playSounds = true;
 
   @override
   Widget build(BuildContext context) {
@@ -76,10 +77,21 @@ class _MyHomePageState extends State<MyHomePage> {
         ),
       ),
       // ignore: prefer_const_constructors
-      body: Home(),
+      body: Home(
+        playSounds: playSounds,
+      ),
       floatingActionButton: FloatingActionButton(
-        onPressed: () {},
-        child: Icon(Icons.ac_unit),
+        onPressed: () {
+          setState(() {
+            playSounds = !playSounds;
+          });
+        },
+        child: playSounds
+            ? const Icon(Icons.volume_up_rounded)
+            : const Icon(
+                Icons.volume_off,
+                color: Colors.amberAccent,
+              ),
       ),
     );
   }

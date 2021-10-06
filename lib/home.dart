@@ -8,15 +8,23 @@ import 'package:quiz/result.dart';
 import 'package:quiz/answers.dart';
 import 'package:quiz/color.dart';
 import 'package:vibration/vibration.dart';
+import 'package:audioplayers/audioplayers.dart';
 
 class Home extends StatefulWidget {
-  const Home({Key? key}) : super(key: key);
+  final bool playSounds;
+  const Home({Key? key, required this.playSounds}) : super(key: key);
 
   @override
   _HomeState createState() => _HomeState();
 }
 
 class _HomeState extends State<Home> {
+  final player = AudioCache(
+    prefix: 'assets/audio/',
+    fixedPlayer: AudioPlayer()..setReleaseMode(ReleaseMode.STOP),
+    respectSilence: true,
+  );
+
   int questionIndex = 0;
   int totalScore = 0;
   int totalAnswerd = 0;
@@ -24,6 +32,7 @@ class _HomeState extends State<Home> {
   String level = "";
   bool answerd = false;
   bool firstClick = false;
+  String resultSound = 'week.mp3';
 
   @override
   void initState() {
@@ -33,15 +42,22 @@ class _HomeState extends State<Home> {
     questionIndex = randomNumber;
   }
 
-  void increaceTheIndex(int score) {
+  void increaceTheIndex(int score) async {
     if (score == 0) {
+      if (widget.playSounds) {
+        player.play('wrong.mp3');
+      }
       Vibration.vibrate(amplitude: 20, duration: 250);
+    } else {
+      if (widget.playSounds) {
+        player.play('correct.mp3');
+      }
     }
     setState(() {
       firstClick = true;
       answerd = true;
     });
-    Future.delayed(const Duration(seconds: 2), () {
+    await Future.delayed(const Duration(seconds: 2), () {
       answerd = false;
       questionsAnswersScores.removeAt(questionIndex);
       setState(() {
@@ -60,18 +76,25 @@ class _HomeState extends State<Home> {
         if (totalScore <= 5) {
           level = "ضعيف";
           resultLevel = Colors.red;
+          resultSound = "week.mp3";
         } else if (totalScore > 5 && totalScore <= 10) {
           level = "جيد";
           resultLevel = Colors.amber;
+          resultSound = "goodLevel.mp3";
         } else if (totalScore > 10 && totalScore <= 15) {
           level = "جيد جدا";
           resultLevel = Colors.blueAccent;
+          resultSound = "veryGoodLeve.mp3";
         } else if (totalScore > 15 && totalScore <= 20) {
           level = "ممتاز";
           resultLevel = Colors.green;
+          resultSound = "perfectLevel.mp3";
         }
       });
     });
+    if (totalAnswerd >= 20 && widget.playSounds) {
+      player.play(resultSound);
+    }
   }
 
   void restartTheQuiz() {
@@ -109,6 +132,7 @@ class _HomeState extends State<Home> {
                 totlaScore: totalScore,
                 level: level,
                 remainingQuestions: questionsAnswersScores.length,
+                resulSound: resultSound,
               ));
   }
 }

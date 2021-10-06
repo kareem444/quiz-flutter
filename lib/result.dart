@@ -6,6 +6,7 @@ class Result extends StatelessWidget {
   final int totlaScore;
   final int remainingQuestions;
   final String level;
+  final String resulSound;
 
   const Result({
     Key? key,
@@ -13,7 +14,9 @@ class Result extends StatelessWidget {
     required this.totlaScore,
     required this.level,
     required this.remainingQuestions,
+    required this.resulSound,
   }) : super(key: key);
+
 
   @override
   Widget build(BuildContext context) {
